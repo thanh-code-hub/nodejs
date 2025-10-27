@@ -2,6 +2,7 @@ import express from 'express';
 import bodyParser from "body-parser";
 import router from "./routes/todoRoutes.js";
 import db from "./models/index.js";
+import errorHandler from "./middleware/errorHandler.js";
 
 const app = express();
 const port = 3000;
@@ -13,6 +14,8 @@ app.get('/', (req, res) => {
 })
 
 app.use('/todo', router)
+
+app.use(errorHandler);
 
 db.sequelize
     .sync()
